@@ -11,12 +11,17 @@ dotnet run --project ./mstverify.csproj -- \
   --param <name>=<value>
 ```
 
+Short aliases:
+- `-s` for `--service-name`
+- `-o` for `--operation`
+- `-p` for `--param`
+
 Example:
 
 ```bash
 dotnet run --project ./mstverify.csproj -- \
-  --service-name signing-transparency \
-  --operation verify \
-  --param tenantId=contoso \
-  --param artifactDigest=sha256:abcd
+  -s signing-transparency \
+  -o verify \
+  -p tenantId=contoso \
+  -p artifactDigest=sha256:abcd
 ```

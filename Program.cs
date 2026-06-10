@@ -15,18 +15,21 @@ for (var i = 0; i < args.Length; i++)
     switch (args[i])
     {
         case "--service-name":
+        case "-s":
             if (!TryReadNext(args, ref i, out serviceName))
             {
                 return ExitWithError("Missing value for --service-name.");
             }
             break;
         case "--operation":
+        case "-o":
             if (!TryReadNext(args, ref i, out operation))
             {
                 return ExitWithError("Missing value for --operation.");
             }
             break;
         case "--param":
+        case "-p":
         {
             if (!TryReadNext(args, ref i, out var raw))
             {
@@ -96,11 +99,11 @@ static int ExitWithError(string message)
 static void PrintHelp()
 {
     Console.WriteLine("Usage:");
-    Console.WriteLine("  mstverify --service-name <service-name> --operation <operation> [--param NAME=VALUE ...]");
+    Console.WriteLine("  mstverify --service-name|-s <service-name> --operation|-o <operation> [--param|-p NAME=VALUE ...]");
     Console.WriteLine();
     Console.WriteLine("Options:");
-    Console.WriteLine("  --service-name <service-name>   Target service name (required)");
-    Console.WriteLine("  --operation <operation>         Operation to run (required)");
-    Console.WriteLine("  --param NAME=VALUE              Input parameter (repeatable)");
+    Console.WriteLine("  --service-name, -s <service-name>   Target service name (required)");
+    Console.WriteLine("  --operation, -o <operation>         Operation to run (required)");
+    Console.WriteLine("  --param, -p NAME=VALUE              Input parameter (repeatable)");
     Console.WriteLine("  -h, --help                      Show help");
 }
