@@ -4,7 +4,7 @@ CLI tool for verification of Microsoft Signing transparency
 ## Usage
 
 ```bash
-./mstverify \
+dotnet run --project ./mstverify.csproj -- \
   --service-name <service-name> \
   --operation <operation> \
   --param <name>=<value> \
@@ -14,7 +14,7 @@ CLI tool for verification of Microsoft Signing transparency
 Example:
 
 ```bash
-./mstverify \
+dotnet run --project ./mstverify.csproj -- \
   --service-name signing-transparency \
   --operation verify \
   --param tenantId=contoso \
