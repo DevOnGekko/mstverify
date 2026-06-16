@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
     <AssemblyName>mstverify</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Formats.Cbor" Version="8.0.0" />
+    <PackageReference Include="Azure.Security.CodeTransparency" Version="1.0.0" />
+  </ItemGroup>
 </Project>
