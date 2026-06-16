@@ -48,7 +48,11 @@ for (var i = 0; i < args.Length; i++)
             break;
         }
         default:
-            return ExitWithError($"Unknown argument '{args[i]}'.");
+            if (!TryHandleCustomInputOption(args, ref i, inputParameters, out var customError))
+            {
+                return ExitWithError(customError ?? $"Unknown argument '{args[i]}'.");
+            }
+            break;
     }
 }
 
@@ -96,14 +100,49 @@ static int ExitWithError(string message)
     return 1;
 }
 
+static bool TryHandleCustomInputOption(
+    string[] args,
+    ref int index,
+    Dictionary<string, string> inputParameters,
+    out string? error)
+{
+    error = null;
+    var token = args[index];
+    if (!token.StartsWith("-", StringComparison.Ordinal))
+    {
+        error = $"Unknown argument '{token}'.";
+        return false;
+    }
+
+    var name = token.TrimStart('-');
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        error = $"Invalid argument '{token}'.";
+        return false;
+    }
+
+    if (index + 1 < args.Length && !args[index + 1].StartsWith("-", StringComparison.Ordinal))
+    {
+        index++;
+        inputParameters[name] = args[index];
+        return true;
+    }
+
+    inputParameters[name] = "true";
+    return true;
+}
+
 static void PrintHelp()
 {
     Console.WriteLine("Usage:");
     Console.WriteLine("  mstverify --service-name|-s <service-name> --operation|-o <operation> [--param|-p NAME=VALUE ...]");
+    Console.WriteLine("  mstverify -s maa -o verifyonline -maaEndpoint <url> -mstEndpoint <url>");
     Console.WriteLine();
     Console.WriteLine("Options:");
     Console.WriteLine("  --service-name, -s <service-name>   Target service name (required)");
     Console.WriteLine("  --operation, -o <operation>         Operation to run (required)");
     Console.WriteLine("  --param, -p NAME=VALUE              Input parameter (repeatable)");
+    Console.WriteLine("  -<name> <value>                     Direct input parameter (example: -maaEndpoint <url>)");
+    Console.WriteLine("  -<flag>                             Direct boolean-style input flag (example: -m)");
     Console.WriteLine("  -h, --help                      Show help");
 }
