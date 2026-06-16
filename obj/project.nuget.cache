@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "KrlKRrZ+X0I=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/mstverify.csproj",
+  "expectedPackageFiles": [
+    "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages/microsoft.netcore.app.ref/8.0.27/microsoft.netcore.app.ref.8.0.27.nupkg.sha512",
+    "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages/microsoft.aspnetcore.app.ref/8.0.27/microsoft.aspnetcore.app.ref.8.0.27.nupkg.sha512",
+    "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages/microsoft.netcore.app.host.linux-x64/8.0.27/microsoft.netcore.app.host.linux-x64.8.0.27.nupkg.sha512"
+  ],
+  "logs": []
+}
