@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/mstverify.csproj": {}
+    "/home/runner/work/mstverify/mstverify/mstverify.csproj": {}
   },
   "projects": {
-    "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/mstverify.csproj": {
+    "/home/runner/work/mstverify/mstverify/mstverify.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/mstverify.csproj",
+        "projectUniqueName": "/home/runner/work/mstverify/mstverify/mstverify.csproj",
         "projectName": "mstverify",
-        "projectPath": "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/mstverify.csproj",
-        "packagesPath": "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages",
-        "outputPath": "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/obj/",
+        "projectPath": "/home/runner/work/mstverify/mstverify/mstverify.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/mstverify/mstverify/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/runner/.nuget/NuGet/NuGet.Config"
@@ -45,6 +45,16 @@
         "net8.0": {
           "framework": "net8.0",
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Azure.Security.CodeTransparency": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "System.Formats.Cbor": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -56,26 +66,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.27, 8.0.27]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[8.0.27, 8.0.27]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.27, 8.0.27]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,12 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "KrlKRrZ+X0I=",
-  "success": true,
-  "projectFilePath": "/home/runner/work/mstverify/mstverify/DevOnGekko/mstverify/mstverify.csproj",
+  "dgSpecHash": "USDBPtN+0pI=",
+  "success": false,
+  "projectFilePath": "/home/runner/work/mstverify/mstverify/mstverify.csproj",
   "expectedPackageFiles": [
-    "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages/microsoft.netcore.app.ref/8.0.27/microsoft.netcore.app.ref.8.0.27.nupkg.sha512",
-    "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages/microsoft.aspnetcore.app.ref/8.0.27/microsoft.aspnetcore.app.ref.8.0.27.nupkg.sha512",
-    "/tmp/codeql-scratch-5bc52d83b9a4d1f3/dbs/csharp/working/packages/microsoft.netcore.app.host.linux-x64/8.0.27/microsoft.netcore.app.host.linux-x64.8.0.27.nupkg.sha512"
+    "/home/runner/.nuget/packages/system.formats.cbor/8.0.0/system.formats.cbor.8.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1102",
+      "level": "Error",
+      "message": "Unable to find package Azure.Security.CodeTransparency with version (>= 1.0.0)\n  - Found 7 version(s) in nuget.org [ Nearest version: 1.0.0-beta.8 ]",
+      "projectPath": "/home/runner/work/mstverify/mstverify/mstverify.csproj",
+      "filePath": "/home/runner/work/mstverify/mstverify/mstverify.csproj",
+      "libraryId": "Azure.Security.CodeTransparency",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
