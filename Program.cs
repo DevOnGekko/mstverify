@@ -73,24 +73,24 @@ IReceiptFetcher receiptFetcher = serviceName.ToLowerInvariant() switch
     _ => throw new ArgumentException($"Unknown service: {serviceName}. Supported services: maa")
 };
 
-// Create the MST certificate verifier using Azure Code Transparency
-IMstCertificateVerifier mstVerifier = new AzureMstCertificateVerifier(new HttpClient());
+// Create the MST verification provider using Azure Code Transparency
+IMstVerificationProvider mstVerificationProvider = new AzureMstVerificationProvider(new HttpClient());
 
 // Execute the operation
-var verifier = new MstVerifier(receiptFetcher, mstVerifier);
+var verificationService = new MstVerificationService(receiptFetcher, mstVerificationProvider);
 
 try
 {
     switch (operation.ToLowerInvariant())
     {
         case "verifyonline":
-            return await ExecuteVerifyOnlineAsync(verifier, inputParameters);
+            return await ExecuteVerifyOnlineAsync(verificationService, inputParameters);
         
         case "verifyoffline":
-            return await ExecuteVerifyOfflineAsync(verifier, inputParameters);
+            return await ExecuteVerifyOfflineAsync(verificationService, inputParameters);
         
         case "monitor":
-            return await ExecuteMonitorAsync(verifier, inputParameters);
+            return await ExecuteMonitorAsync(verificationService, inputParameters);
         
         default:
             return ExitWithError($"Unknown operation: {operation}. Supported operations: verifyonline, verifyoffline, monitor");
@@ -102,7 +102,7 @@ catch (Exception ex)
     return 1;
 }
 
-static async Task<int> ExecuteVerifyOnlineAsync(MstVerifier verifier, Dictionary<string, string> parameters)
+static async Task<int> ExecuteVerifyOnlineAsync(MstVerificationService verificationService, Dictionary<string, string> parameters)
 {
     if (!parameters.TryGetValue("serviceEndpoint", out var serviceEndpoint) || string.IsNullOrWhiteSpace(serviceEndpoint))
     {
@@ -114,10 +114,10 @@ static async Task<int> ExecuteVerifyOnlineAsync(MstVerifier verifier, Dictionary
         return ExitWithError("Missing required parameter: -mstEndpoint <url>");
     }
 
-    return await verifier.VerifyOnlineAsync(serviceEndpoint, mstEndpoint);
+    return await verificationService.VerifyOnlineAsync(serviceEndpoint, mstEndpoint);
 }
 
-static async Task<int> ExecuteVerifyOfflineAsync(MstVerifier verifier, Dictionary<string, string> parameters)
+static async Task<int> ExecuteVerifyOfflineAsync(MstVerificationService verificationService, Dictionary<string, string> parameters)
 {
     if (!parameters.TryGetValue("serviceReceipt", out var serviceReceipt) || string.IsNullOrWhiteSpace(serviceReceipt))
     {
@@ -129,10 +129,10 @@ static async Task<int> ExecuteVerifyOfflineAsync(MstVerifier verifier, Dictionar
         return ExitWithError("Missing required parameter: -mstEndpoint <certificate-file-path>");
     }
 
-    return await verifier.VerifyOfflineAsync(serviceReceipt, mstCert);
+    return await verificationService.VerifyOfflineAsync(serviceReceipt, mstCert);
 }
 
-static async Task<int> ExecuteMonitorAsync(MstVerifier verifier, Dictionary<string, string> parameters)
+static async Task<int> ExecuteMonitorAsync(MstVerificationService verificationService, Dictionary<string, string> parameters)
 {
     if (!parameters.TryGetValue("serviceEndpoint", out var serviceEndpoint) || string.IsNullOrWhiteSpace(serviceEndpoint))
     {
@@ -164,7 +164,7 @@ static async Task<int> ExecuteMonitorAsync(MstVerifier verifier, Dictionary<stri
         return ExitWithError("Interval must be greater than 0");
     }
 
-    return await verifier.MonitorAsync(serviceEndpoint, mstEndpoint, duration, interval);
+    return await verificationService.MonitorAsync(serviceEndpoint, mstEndpoint, duration, interval);
 }
 
 return 0;
