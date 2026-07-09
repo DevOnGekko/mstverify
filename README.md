@@ -257,15 +257,15 @@ The tool uses a pluggable architecture to support multiple attestation services 
    - `FetchServiceVersionAsync()`: Retrieves the service version/build number
    - `DownloadReceiptAsync()`: Downloads the receipt from the service
 
-2. **`IMstCertificateVerifier` Interface**: Defines the contract for MST verification
+2. **`IMstVerificationProvider` Interface**: Defines the contract for MST verification support
    - `DownloadRootCertificateAsync()`: Downloads the root certificate from MST endpoint
    - `VerifyReceipt()`: Verifies the receipt against the root certificate
 
 3. **Service Implementations**:
    - `MAAReceiptFetcher`: Microsoft Azure Attestation implementation
-   - `AzureMstCertificateVerifier`: Azure Code Transparency-based MST verification
+   - `AzureMstVerificationProvider`: Azure Code Transparency-based MST verification support
 
-4. **`MstVerifier`**: Core orchestration logic that coordinates the verification flow
+4. **`MstVerificationService`**: Core orchestration logic that coordinates the verification flow
 
 ### Adding New Services
 
@@ -316,7 +316,7 @@ The version `1.11.03371.5702` is extracted from the `x-ms-maa-service-version` h
 
 ## MST Certificate Download
 
-The `AzureMstCertificateVerifier` implementation attempts to download the root certificate from multiple MST endpoints:
+The `AzureMstVerificationProvider` implementation attempts to download the root certificate from multiple MST endpoints:
 
 1. **Service Certificate Endpoint**: `/app/governance/serviceCertificate`
 2. **Constitution Endpoint**: `/app/governance/constitution`
@@ -335,7 +335,7 @@ The complete verification flow:
    - Fetch service version from headers
    - Download receipt from service endpoints
 
-2. **MST certificate download** (via `IMstCertificateVerifier`)
+2. **MST certificate download** (via `IMstVerificationProvider`)
    - Download root certificate from MST endpoint
    - Parse and validate certificate format
 

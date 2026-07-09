@@ -5,13 +5,13 @@ using Azure.Security.CodeTransparency;
 namespace MstVerify;
 
 /// <summary>
-/// Azure-based MST certificate verifier using Azure.Security.CodeTransparency
+/// Azure-based MST verification support using Azure.Security.CodeTransparency
 /// </summary>
-public class AzureMstCertificateVerifier : IMstCertificateVerifier
+public class AzureMstVerificationProvider : IMstVerificationProvider
 {
     private readonly HttpClient _httpClient;
 
-    public AzureMstCertificateVerifier(HttpClient httpClient)
+    public AzureMstVerificationProvider(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }

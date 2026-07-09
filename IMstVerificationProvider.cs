@@ -3,9 +3,9 @@ using System.Security.Cryptography.X509Certificates;
 namespace MstVerify;
 
 /// <summary>
-/// Interface for MST certificate management and receipt verification
+/// Interface for MST verification support operations
 /// </summary>
-public interface IMstCertificateVerifier
+public interface IMstVerificationProvider
 {
     /// <summary>
     /// Downloads the root certificate from the MST endpoint

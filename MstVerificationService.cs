@@ -1,14 +1,14 @@
 namespace MstVerify;
 
-public class MstVerifier
+public class MstVerificationService
 {
     private readonly IReceiptFetcher _receiptFetcher;
-    private readonly IMstCertificateVerifier _mstVerifier;
+    private readonly IMstVerificationProvider _mstVerificationProvider;
 
-    public MstVerifier(IReceiptFetcher receiptFetcher, IMstCertificateVerifier mstVerifier)
+    public MstVerificationService(IReceiptFetcher receiptFetcher, IMstVerificationProvider mstVerificationProvider)
     {
         _receiptFetcher = receiptFetcher;
-        _mstVerifier = mstVerifier;
+        _mstVerificationProvider = mstVerificationProvider;
     }
 
     public async Task<int> VerifyOnlineAsync(string serviceEndpoint, string mstEndpoint)
@@ -34,13 +34,13 @@ public class MstVerifier
 
             // Step 3: Download root certificate from MST endpoint
             Console.WriteLine("Step 3: Downloading root certificate from MST endpoint...");
-            var rootCertificate = await _mstVerifier.DownloadRootCertificateAsync(mstEndpoint);
+            var rootCertificate = await _mstVerificationProvider.DownloadRootCertificateAsync(mstEndpoint);
             Console.WriteLine($"Root certificate downloaded: {rootCertificate.Subject}");
             Console.WriteLine();
 
             // Step 4: Verify the receipt
             Console.WriteLine("Step 4: Verifying MST receipt...");
-            var isValid = _mstVerifier.VerifyReceipt(receiptBytes, rootCertificate);
+            var isValid = _mstVerificationProvider.VerifyReceipt(receiptBytes, rootCertificate);
             
             if (isValid)
             {
@@ -93,7 +93,7 @@ public class MstVerifier
 
             // Step 3: Verify the receipt
             Console.WriteLine("Step 3: Verifying MST receipt...");
-            var isValid = _mstVerifier.VerifyReceipt(receiptBytes, rootCertificate);
+            var isValid = _mstVerificationProvider.VerifyReceipt(receiptBytes, rootCertificate);
             
             if (isValid)
             {
